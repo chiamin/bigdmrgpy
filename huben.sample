@@ -1,0 +1,194 @@
+basic
+    {
+    symmetric = no
+    printlevel = 1
+    disk_save_limit = 1000000000
+    savecondensed = no
+    measgroup = 30
+    modelname = Hubbard
+    longhops = no
+    targettype = single
+    threeblocks = no
+    }
+lattice
+    {
+    doflip = no
+    d2open
+	{
+	lx = 6
+	ly = 3
+	periodic = 1
+	}
+    vacanciesX
+	{
+	numvacant = 5
+	sites
+	    {
+	    x	y
+	    1	1
+	    }
+	}
+    neworderX
+        {
+        ix  iy
+        1  2
+        1  4
+        1  6
+        }
+    }
+hubbard
+    {
+    tx = 1.0
+    ty = 1.0
+    U = 8.0
+    J = 0.0
+    V = 0.0
+    mu = 0.0
+    doDDW = no
+
+    delta_potentialXX
+        {
+        allbonds = no
+        delx = 1
+        dely = -1
+        numpair = 0
+        bonds
+            {
+            x1  y1      x2      y2      delpot
+            }
+        }
+
+    localmuhX
+        {
+        numsite = 8
+        sites
+            {
+            x   y       code    mu      h
+            8   1       2       0       0.1
+            8   8       2       0       -0.1
+            }
+        }
+
+    localfieldsX
+	{
+	numsite = 6
+	sites
+	    {
+	    x	y	E	H	U
+	    1	1	0	0.25	8
+	    6	3	0	-0.25	8
+	    }
+	}
+    extrabondsX
+	{
+        numbonds = 15
+        bonds
+            {
+            x1 y1      x2      y2      tval	jval
+            1  2  2  1  1  0
+	    }
+	}
+    }
+tjhubmeas
+    {
+    docdagc
+	{
+	standard = no
+	manypairs = no
+	allpairs = yes
+	numpairs = 2
+        pairs
+	    {
+	    x1	y1	x2	y2
+	    2	1	6	1
+	    2	2	6	2
+	    }
+	}
+    doSplusSminusXXX
+	{
+	standard = no
+	numpair = 2
+	pairs
+	    {
+	    x1	y1	x2	y2
+	    2	1	6	1
+	    2	2	6	2
+	    }
+	}
+    dopairpairX
+	{
+	domanypairs = 3
+	}
+    domanyCDW = no
+    doKESS = no
+    nholemeasXXX
+	{
+	nummeas = 1
+	meashole
+	    {
+	    nhole      x1      y1      ...
+	    1		2	2
+	    }
+	}
+    docdag = no
+    cdagcdagXX
+	{
+	doallpairs = no
+	dotriplet = no
+	}
+    }
+
+system
+    {
+    modhamX
+        {
+        numchange = 4
+        coefs
+            {
+            sw  coef
+            1   1.00
+            3   0.2
+            4   0.1
+            10  0.005
+            }
+        }
+
+    weightedtruncate = no
+
+    singlewfn
+	{
+	Sz = 0
+	Nf = 18
+	dolanczos = no
+	firstmainsweep = 0
+	numsweeps = 23
+	sweeps
+	    {
+	    maxstates minstates	numstr	target  noise   eps	maxiter dim	trim
+	    64		64	64	1e-10	0.0	1e-4	1	10	0
+	    128		128	128	1e-10	0.0	1e-6	1	8	0
+	    }
+	}
+    warmup
+	{
+	maxstates = 64
+	eps = 1e-10
+	maxiter = 2
+	dim = 10
+	dolanczos = no
+	period = 2
+	doshift = 0
+	nsteps = 100
+	numsitesrest = 3
+	specialqnsXX
+	    {
+	    numspecial = 0
+	    qns
+		{
+		step	Sz	Nf
+		1	0	0
+		}
+	    }
+	}
+    }
+
